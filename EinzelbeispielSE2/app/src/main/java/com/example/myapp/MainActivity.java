@@ -28,6 +28,18 @@ public class MainActivity extends AppCompatActivity {
                 //parse into String
                 String text = txt.getText().toString();
 
+                //implementing client
+                JavaClient client = new JavaClient(text);
+                client.start();
+
+                try{
+                    client.join();
+                } catch (InterruptedException e ){
+                    e.printStackTrace();
+                }
+
+                textfeld.setText(client.modifiedSentence);
+
                 //parse String into int array
                 int[] arr = new int[text.length()];
                 for(int i = 0; i < arr.length; i++){
@@ -39,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     for(int j = 1; j < arr.length; j++){
                         try{
                             if(arr[i] % arr[j] == 0 && arr[i] / arr[j] > 1){
-                                textfeld.setText(i + " " + j);
+                                textfeld.setText("Die Indices der Ziffern mit gemeinsamen Teiler lauten: " + i + "&" + j);
                             }
                         } catch (ArithmeticException e){
                             //System.out.println("Cannot divide by zero!");
